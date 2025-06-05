@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>17 Club - Login & Register</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 40px 30px;
+  border-radius: 15px;
+  width: 360px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+.logo h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  letter-spacing: 4px;
+  color: #ff4d4d;
+  text-shadow: 0 0 15px #ff4d4d;
+}
+
+form input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+form input:focus {
+  box-shadow: 0 0 8px #ff4d4d;
+}
+
+form button {
+  width: 100%;
+  padding: 16px;
+  background: #ff4d4d;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #cc3a3a;
+}
+
+p {
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+p a {
+  color: #ff4d4d;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+/* Hide both forms initially, show only login */
+#registerForm {
+  display: none;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <h1>17 Club</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Enter your username" required />
+      <input type="password" id="password" placeholder="Enter your password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm">
+      <input type="text" id="regUsername" placeholder="Choose a username" required />
+      <input type="email" id="regEmail" placeholder="Enter your email" required />
+      <input type="password" id="regPassword" placeholder="Create a password" required />
+      <input type="text" id="invitationCode" placeholder="Invitation Code" required />
+      <button type="submit">Register</button>
+    </form>
+
+    <p id="toggleText">Don't have an account? <a id="toggleLink">Register here</a></p>
+  </div>
+
+<script>
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+const toggleText = document.getElementById('toggleText');
+const toggleLink = document.getElementById('toggleLink');
+
+toggleLink.addEventListener('click', () => {
+  if (loginForm.style.display !== 'none') {
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'block';
+    toggleText.innerHTML = 'Already have an account? <a id="toggleLink">Login here</a>';
+  } else {
+    registerForm.style.display = 'none';
+    loginForm.style.display = 'block';
+    toggleText.innerHTML = 'Don\'t have an account? <a id="toggleLink">Register here</a>';
+  }
+  // Re-attach event listener to new link after innerHTML update
+  document.getElementById('toggleLink').addEventListener('click', toggleLink.click);
+});
+
+loginForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  if (!username || !password) {
+    alert('Please enter both username and password');
+    return;
+  }
+
+  alert(`Welcome back, ${username}! (Demo login successful)`);
+  // backend login logic can be added later
+});
+
+registerForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const username = document.getElementById('regUsername').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const password = document.getElementById('regPassword').value.trim();
+  const invitationCode = document.getElementById('invitationCode').value.trim();
+
+  if (!username || !email || !password || !invitationCode) {
+    alert('Please fill all the fields');
+    return;
+  }
+
+  const validCode = '1814922257846'; // invitation code
+
+  if (invitationCode !== validCode) {
+    alert('Invalid Invitation Code');
+    return;
+  }
+
+  alert(`Registration successful for ${username}! (Invitation code accepted)`);
+  // backend registration logic can be added later
+});
+</script>
+</body>
+</html>
