@@ -1,73 +1,36 @@
-const API_URL = 'http://localhost:5000';  // Backend URL
+document.getElementById('loginForm')?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
 
-function showSection(id) {
-  document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
-  document.getElementById(id).style.display = 'block';
-}
-
-async function login() {
-  const phone = document.getElementById('phone').value.trim();
-  const pass = document.getElementById('password').value.trim();
-
-  if (!phone || !pass) {
-    alert('Please enter phone number and password.');
+  if (!username || !password) {
+    alert('Please enter both username and password');
     return;
   }
 
-  try {
-    const res = await fetch(`${API_URL}/login`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({phone, password: pass})
-    });
-    const data = await res.json();
-    if (data.success) {
-      alert('Login successful! Balance: ' + data.balance);
-      showSection('games-section');
-    } else {
-      alert(data.msg);
-    }
-  } catch (err) {
-    alert('Server error.');
-  }
-}
+  alert(`Welcome back, ${username}! (Demo login successful)`);
+  // Backend login logic can be implemented here later
+});
 
-async function register() {
-  const phone = document.getElementById('reg-phone').value.trim();
-  const pass = document.getElementById('reg-password').value.trim();
-  const pass2 = document.getElementById('reg-password2').value.trim();
+document.getElementById('registerForm')?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const username = document.getElementById('regUsername').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const password = document.getElementById('regPassword').value.trim();
+  const invitationCode = document.getElementById('invitationCode').value.trim();
 
-  if (!phone || !pass || !pass2) {
-    alert('Please fill all fields.');
+  if (!username || !email || !password || !invitationCode) {
+    alert('Please fill all the fields');
     return;
   }
 
-  if (pass !== pass2) {
-    alert('Passwords do not match.');
+  const validCode = '1814922257846';  // Invitation code from original site
+
+  if (invitationCode !== validCode) {
+    alert('Invalid Invitation Code');
     return;
   }
 
-  try {
-    const res = await fetch(`${API_URL}/register`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({phone, password: pass})
-    });
-    const data = await res.json();
-    if (data.success) {
-      alert('Registration successful! You can now login.');
-      showSection('login-section');
-    } else {
-      alert(data.msg);
-    }
-  } catch (err) {
-    alert('Server error.');
-  }
-}
-
-function logout() {
-  alert('Logged out.');
-  showSection('login-section');
-}
-
-showSection('login-section');
+  alert(`Registration successful for ${username}! (Invitation code accepted)`);
+  // Backend registration logic can be implemented here later
+});
