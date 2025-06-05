@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>17 Club</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="17 Club Logo" style="height:50px;" />
+    <h1>17 Club</h1>
+  </header>
+
+  <section id="login-section">
+    <h2>Login</h2>
+    <input type="text" id="phone" placeholder="Phone Number" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <p>New user? <span onclick="showSection('register-section')">Register here</span></p>
+  </section>
+
+  <section id="register-section" style="display:none;">
+    <h2>Register</h2>
+    <input type="text" id="reg-phone" placeholder="Phone Number" />
+    <input type="password" id="reg-password" placeholder="Password" />
+    <input type="password" id="reg-password2" placeholder="Confirm Password" />
+    <button onclick="register()">Create Account</button>
+    <p>Already have an account? <span onclick="showSection('login-section')">Login here</span></p>
+  </section>
+
+  <section id="games-section" style="display:none;">
+    <h2>Games</h2>
+    <div class="games-list">
+      <div class="game-card">Game 1</div>
+      <div class="game-card">Game 2</div>
+      <div class="game-card">Game 3</div>
+    </div>
+    <button onclick="showSection('payment-section')">Go to Payment</button>
+    <button onclick="logout()">Logout</button>
+  </section>
+
+  <section id="payment-section" style="display:none;">
+    <h2>Make Payment</h2>
+    <p>Scan the QR code below to pay:</p>
+    <img src="qr.jpg" alt="Payment QR" width="200" />
+    <p>After payment, balance will be updated manually by admin.</p>
+    <button onclick="showSection('games-section')">Back to Games</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
