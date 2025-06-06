@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>07 Club Games</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #0c0c0c; color: white; padding: 20px; max-width: 500px; margin: auto; text-align: center; }
+  button { background: #fbc02d; border: none; padding: 15px; margin: 10px; font-weight: bold; cursor: pointer; }
+</style>
+</head>
+<body>
+  <h1>Color Guess Game</h1>
+  <p>Guess if the color is Red or Blue</p>
+  <button onclick="play('red')">Red</button>
+  <button onclick="play('blue')">Blue</button>
+  <p id="result"></p>
+  <button onclick="location.href='dashboard.html'">Back to Dashboard</button>
+
+<script>
+  function play(choice) {
+    const colors = ['red', 'blue'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    if (choice === randomColor) {
+      document.getElementById('result').innerText = "You Win! 🎉 Color was " + randomColor;
+      updateWallet(100);
+    } else {
+      document.getElementById('result').innerText = "You Lose! 😞 Color was " + randomColor;
+      updateWallet(-50);
+    }
+  }
+
+  function updateWallet(amount) {
+    let balance = parseInt(localStorage.getItem('walletBalance')) || 1000;
+    balance += amount;
+    if (balance < 0) balance = 0;
+    localStorage.setItem('walletBalance', balance);
+    document.getElementById('result').innerText += ` | Wallet: ₹${balance}`;
+  }
+
+  window.onload = () => {
+    let balance = parseInt(localStorage.getItem('walletBalance'));
+    if (!balance) {
+      localStorage.setItem('walletBalance', 1000);
+    }
+  };
+</script>
+</body>
+</html>
